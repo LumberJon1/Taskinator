@@ -9,9 +9,30 @@
 </head>
 <body>
     <header>
+
         <h1 class="page-title">Taskinator</h1>
         <p>Click the button below to add a new task!</p>
-        <button class="button" id="save-task">Add Task</button>
+
+        <form action="" id="task-form">
+            <div class="form-group">
+                <input type="text" name="task-name" placeholder="Enter Task Name" />
+            </div>
+            <div class="form-group">
+                <select name="task-type" class="select-dropdown">
+                    <option value="" disabled selected>Pick a Task Type</option>
+                    <option value="photo-shoot">Photo Shoot</option>
+                    <option value="contract">Contract</option>
+                    <option value="photo-book">Photo Book</option>
+                    <option value="editing">Editing</option>
+                    <option value="post">Post</option>
+                    <option value="communicate">Communicate</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn" id="save-task" type="submit">Add Task</button>
+            </div>
+        </form>
+
     </header>
 
     <main class="page-content">
