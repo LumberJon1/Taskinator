@@ -17,6 +17,8 @@ var taskFormHandler = function(event) {
     //call the createTaskEl function
     createTaskEl(taskDataObj);
 
+    formEl.reset();
+
 }
 
 var createTaskEl = function(taskDataObj) {
