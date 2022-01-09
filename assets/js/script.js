@@ -6,6 +6,9 @@ var pageContentEl = document.querySelector("#page-content");
 
 var taskIDCounter = 0;
 
+//Storage array for the task objects
+var tasks = [];
+
 var taskFormHandler = function(event) {
 
     event.preventDefault(); //Prevents the browser from clearing form submissions
@@ -25,7 +28,8 @@ var taskFormHandler = function(event) {
         //package data as a new object
         var taskDataObj = {
             name: taskNameInput,
-            type: taskTypeInput
+            type: taskTypeInput,
+            status: "to do"
         }
 
         //call the createTaskEl function
@@ -43,6 +47,14 @@ var completeEditTask = function(taskName, taskType, taskID) {
     //Set the new values
     taskSelected.querySelector("h3.task-name").textContent = taskName;
     taskSelected.querySelector("span.task-type").textContent = taskType;
+
+    //Set values in the tasks array
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(taskID)) {
+            tasks[i].name = taskName;
+            tasks[i].type = taskType;
+        }
+    };
 
     alert("task updated!");
 
@@ -62,6 +74,10 @@ var createTaskEl = function(taskDataObj) {
         taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
         listItemEl.className = "task-item";
         listItemEl.appendChild(taskInfoEl);
+
+        //Add the object info to the tasks array for local storage
+        taskDataObj.id = taskIDCounter;
+        tasks.push(taskDataObj);
 
         //Create the task actions and append to the task element
         var taskActionsEl = createTaskActions(taskIDCounter);
@@ -175,6 +191,13 @@ var taskStatusChangeHandler = function(event) {
     else if (statusValue === "completed") {
         tasksCompletedEl.appendChild(taskSelected);
     }
+
+    // update task status in tasks array
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(taskID)) {
+            tasks[i].status = statusValue;
+        }
+    };
 
 };
 
