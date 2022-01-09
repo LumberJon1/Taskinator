@@ -1,5 +1,7 @@
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+var tasksCompletedEl = document.querySelector("#tasks-completed");
 var pageContentEl = document.querySelector("#page-content");
 
 var taskIDCounter = 0;
@@ -151,6 +153,32 @@ var editTask = function(taskID) {
     formEl.setAttribute("data-task-id", taskID);
 }
 
-formEl.addEventListener("submit", taskFormHandler);
+var taskStatusChangeHandler = function(event) {
 
+    //Find the item's ID
+    var taskID = event.target.getAttribute("data-task-id");
+
+    //Get current status value from select element and use to place in proper list
+    console.log("event.target:", event.target);
+    console.log("event.target.value: ", event.target.value);
+    var statusValue = event.target.value.toLowerCase();
+    var taskSelected = document.querySelector(".task-item[data-task-id='"+taskID+"']");
+
+    //Because we did not make a document.createElement() for the task item, we will append it to
+    //a new corresponding ul element.
+    if (statusValue === "to do") {
+        tasksToDoEl.appendChild(taskSelected);
+    }
+    else if (statusValue === "in progress") {
+        tasksInProgressEl.appendChild(taskSelected);
+    }
+    else if (statusValue === "completed") {
+        tasksCompletedEl.appendChild(taskSelected);
+    }
+
+};
+
+//Event listeners
+formEl.addEventListener("submit", taskFormHandler);
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("click", taskButtonHandler);
