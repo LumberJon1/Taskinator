@@ -151,6 +151,20 @@ var taskButtonHandler = function(event) {
 var deleteTask = function(taskID) {
     var taskSelected = document.querySelector(".task-item[data-task-id='"+taskID+"']");
     taskSelected.remove();
+
+    //Create a new copy of the Tasks array to update
+    updatedTasks = [];
+
+    //Loop through the array and compare each task to the current ID for the one to be deleted,
+    //only pushing ones that are not being deleted.
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i] !== parseInt(taskID)) {
+            updatedTasks.push(tasks[i]);
+        }
+    }
+
+    //Update the tasks array with the new values
+    tasks = updatedTasks;
 };
 
 var editTask = function(taskID) {
