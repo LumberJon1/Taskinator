@@ -56,6 +56,8 @@ var completeEditTask = function(taskName, taskType, taskID) {
         }
     };
 
+    saveTasks();
+
     alert("task updated!");
 
     //Reset form for user and clear ID
@@ -85,6 +87,8 @@ var createTaskEl = function(taskDataObj) {
 
         //Append the entire task to the to-do element
         tasksToDoEl.appendChild(listItemEl);
+
+        saveTasks();
 
         taskIDCounter++;
 
@@ -165,6 +169,8 @@ var deleteTask = function(taskID) {
 
     //Update the tasks array with the new values
     tasks = updatedTasks;
+
+    saveTasks();
 };
 
 var editTask = function(taskID) {
@@ -213,7 +219,14 @@ var taskStatusChangeHandler = function(event) {
         }
     };
 
+    saveTasks();
+
 };
+
+var saveTasks = function() {
+    //Stringify the objects and throw them in local storage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 //Event listeners
 formEl.addEventListener("submit", taskFormHandler);
